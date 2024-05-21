@@ -97,8 +97,6 @@ class ModalViewController: UIViewController {
     @objc private func routeUpdated(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let instructions = userInfo["instructions"] as? [MKRoute.Step] else { return }
-        
-        // Use the updated user location here
         updateInstructionsLabel(with: instructions)
         routeTitleLabel.text = "Route instructions"
     }
@@ -134,7 +132,6 @@ class ModalViewController: UIViewController {
         }
         // Calculate distance
         let distance = userLocation.distance(from: trackerLocation)
-        
         // Calculate elevation
         let userElevation = userLocation.altitude
         let trackerElevation = trackerLocation.altitude
