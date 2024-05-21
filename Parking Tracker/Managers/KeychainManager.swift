@@ -9,9 +9,11 @@ import Foundation
 import Security
 import CoreLocation
 
-struct KeychainManager {
-    
+class KeychainManager {
+    static let shared = KeychainManager()
     private let accountKey = "TrackerLocation"
+    
+    private init() {}
     
     @discardableResult
     func save(_ location: Location) -> Bool {

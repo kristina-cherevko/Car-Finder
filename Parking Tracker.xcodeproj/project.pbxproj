@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63079E092BFD17170092DDDA /* BluetootManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63079E082BFD17170092DDDA /* BluetootManager.swift */; };
 		63D655BA2BEFB7B5008AA318 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D655B92BEFB7B5008AA318 /* AppDelegate.swift */; };
 		63D655BC2BEFB7B5008AA318 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D655BB2BEFB7B5008AA318 /* SceneDelegate.swift */; };
 		63D655BE2BEFB7B5008AA318 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D655BD2BEFB7B5008AA318 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63079E082BFD17170092DDDA /* BluetootManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetootManager.swift; sourceTree = "<group>"; };
 		63D655B62BEFB7B5008AA318 /* Parking Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parking Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63D655B92BEFB7B5008AA318 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63D655BB2BEFB7B5008AA318 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				63D655D52BF56BE4008AA318 /* KeychainManager.swift */,
+				63079E082BFD17170092DDDA /* BluetootManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63D655BE2BEFB7B5008AA318 /* ViewController.swift in Sources */,
+				63079E092BFD17170092DDDA /* BluetootManager.swift in Sources */,
 				63D655D62BF56BE4008AA318 /* KeychainManager.swift in Sources */,
 				63D655D12BF125F8008AA318 /* ModalViewController.swift in Sources */,
 				63D655BA2BEFB7B5008AA318 /* AppDelegate.swift in Sources */,

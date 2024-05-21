@@ -9,6 +9,10 @@ import UIKit
 import CoreLocation
 import MapKit
 
+protocol ModalViewControllerDelegate: AnyObject {
+    func didTapGoButton()
+}
+
 class ModalViewController: UIViewController {
     private var carTitleLabel: UILabel!
     private var carLocationLabel: UILabel!
