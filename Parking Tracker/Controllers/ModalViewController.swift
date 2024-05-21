@@ -140,7 +140,7 @@ class ModalViewController: UIViewController {
         let trackerElevation = trackerLocation.altitude
         let elevationDifference = trackerElevation - userElevation
         
-        carLocationLabel.text = "\(formatDistance(distance)) • \(elevationDifference > 0 ? "↑" : "↓") \(Double(round(1000*elevationDifference))/1000)"
+        carLocationLabel.text = "\(formatDistance(distance)) • \(elevationDifference > 0 ? "↑" : "↓") \(Double(round(1000*elevationDifference))/1000) meters"
     }
     
     func formatDistance(_ distance: CLLocationDistance) -> String {

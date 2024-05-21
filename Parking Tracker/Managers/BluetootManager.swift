@@ -63,7 +63,6 @@ extension BluetoothManager: CBCentralManagerDelegate {
             print("Device found!")
             // Stop scan
             centralManager.stopScan()
-
             // Connect
             centralManager.connect(peripheral, options: nil)
             self.peripheral = peripheral
@@ -80,7 +79,6 @@ extension BluetoothManager: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected")
-//        centralManager.scanForPeripherals(withServices: nil, options: nil)
         DispatchQueue.global(qos: .background).async {
             central.scanForPeripherals(withServices: nil, options: nil)
         }
@@ -99,7 +97,6 @@ extension BluetoothManager : CBPeripheralDelegate {
     }
 
     // MARK: - Discover characteristics for the service
-
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard let characteristics = service.characteristics else { return }
 
@@ -125,20 +122,14 @@ extension BluetoothManager : CBPeripheralDelegate {
                 } else if dataString.hasPrefix("Alt:") {
                     trackerAltitude = parseValue(from: dataString)
                 }
-           }
-            
-            // Check if we have received all necessary information
+            }
             if let longitude = trackerLongitude, let latitude = trackerLatitude, let altitude = trackerAltitude {
-                // Create a CLLocation object with the parsed values
                 let location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude / 10000000, longitude: longitude / 10000000), altitude: altitude, horizontalAccuracy: 1.5, verticalAccuracy: 3.5, timestamp: Date())
                 
-                // Reset values for the next data packet
                 self.trackerLongitude = nil
                 self.trackerLatitude = nil
                 self.trackerAltitude = nil
-                
-//                trackerLocation = location
-                
+                                
                 NotificationCenter.default.post(name: Notification.Name("TrackerLocationUpdated"), object: nil, userInfo: ["trackerLocation": location])
                 saveTrackerLocationToKeychain(trackerLocation: location)
             }
@@ -147,21 +138,14 @@ extension BluetoothManager : CBPeripheralDelegate {
     
     func parseValue(from line: String) -> Double? {
         guard line.count >= 5 else { return Double(line) }
-            
         let startIndex = line.index(line.startIndex, offsetBy: 5)
         let trimmedString = String(line[startIndex...])
         return Double(trimmedString)
     }
     
     func saveTrackerLocationToKeychain(trackerLocation: CLLocation) {
-//        if let trackerLocation = trackerLocation {
             let locationModel = Location(latitude: trackerLocation.coordinate.latitude, longitude: trackerLocation.coordinate.longitude, altitude: trackerLocation.altitude, horizontalAccuracy: trackerLocation.horizontalAccuracy, verticalAccuracy: trackerLocation.verticalAccuracy, speed: trackerLocation.speed, course: trackerLocation.course, timestamp: trackerLocation.timestamp)
-//            locationStorage.save(locationModel)
             KeychainManager.shared.save(locationModel)
             print("saved tracker location to keychain")
-//        }
     }
-    
-   
-    
 }

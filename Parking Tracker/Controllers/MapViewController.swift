@@ -17,10 +17,8 @@ class MapViewController: UIViewController {
     var trackerLocation: CLLocation?
     var shouldDrawRoute = false
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        bluetoothManager = BluetoothManager(delegate: self)
-        setupMapView()
+    
+    func fetchStoredTrackerLocation() {
         DispatchQueue.global(qos: .background).async { [weak self] in
             if let storedLocation = KeychainManager.shared.get() {
                 self?.trackerLocation = CLLocation(model: storedLocation)
@@ -30,12 +28,6 @@ class MapViewController: UIViewController {
                 }
             }
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(trackerLocationUpdated(_:)), name: Notification.Name("TrackerLocationUpdated"), object: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        showSheetViewController()
     }
     
     @objc private func trackerLocationUpdated(_ notification: Notification) {
@@ -48,15 +40,39 @@ class MapViewController: UIViewController {
        }
     }
 
+    func addTrackerAnnotation() {
+        guard let trackerLocation = trackerLocation else { return }
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = trackerLocation.coordinate
+        mapView.addAnnotation(annotation)
+    }
+}
+
+// MARK: Lifecycle
+extension MapViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        bluetoothManager = BluetoothManager(delegate: self)
+        setupMapView()
+        fetchStoredTrackerLocation()
+        NotificationCenter.default.addObserver(self, selector: #selector(trackerLocationUpdated(_:)), name: Notification.Name("TrackerLocationUpdated"), object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupSheetViewController()
+    }
+}
+
+// MARK: Views setup
+extension MapViewController {
     func setupMapView() {
         mapView = MKMapView()
-      
         mapView.preferredConfiguration = MKHybridMapConfiguration(elevationStyle: .realistic)
-        
         mapView.pitchButtonVisibility = .visible
         mapView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mapView)
-        
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -64,13 +80,12 @@ class MapViewController: UIViewController {
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        mapView.delegate = self
-        
         manager.requestWhenInUseAuthorization()
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.startUpdatingLocation()
         manager.delegate = self
         
+        mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .followWithHeading
         mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, latitudinalMeters: 10, longitudinalMeters: 10), animated: true)
@@ -78,18 +93,7 @@ class MapViewController: UIViewController {
         mapView.showsUserTrackingButton = true
     }
     
-    func addTrackerAnnotation() {
-        guard let trackerLocation = trackerLocation else { return }
-        // Remove previous tracker annotation
-        mapView.removeAnnotations(mapView.annotations)
-        
-        // Add new tracker annotation
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = trackerLocation.coordinate
-        mapView.addAnnotation(annotation)
-    }
-    
-    func showSheetViewController() {
+    func setupSheetViewController() {
         sheetViewController = ModalViewController()
         sheetViewController.delegate = self
         sheetViewController.trackerLocation = trackerLocation
