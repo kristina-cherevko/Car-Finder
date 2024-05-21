@@ -12,9 +12,9 @@ CarFinder is an iOS application that connects to a Bluetooth-enabled tracking de
 
 ## Screenshots
 
-![Route in the parking lot](screenshots/IMG_1400.png)
-![Route at school](screenshots/IMG_1412.png)
-![Route in the parking lot](screenshots/IMG_1426.png)
+![Route in the parking lot](../screenshots/IMG_1400.png)
+![Route at school](../screenshots/IMG_1412.png)
+![Route in the parking lot](./screenshots/IMG_1426.png)
 ![Route at mall](screenshots/IMG_1431.png)
 
 
