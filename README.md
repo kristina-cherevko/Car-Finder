@@ -11,11 +11,11 @@ CarFinder is an iOS application that connects to a Bluetooth-enabled tracking de
 - **User Notifications**: Receives updates about the tracker's location.
 
 ## Screenshots
-<p align="center">
-    <img src="https://github.com/kristina-cherevko/Car-Finder/blob/main/screenshots/IMG_1400.PNG" alt="Route in the parking lot" width="200">
-    <img src="https://github.com/kristina-cherevko/Car-Finder/blob/main/screenshots/IMG_1412.PNG" alt="Route at school" width="200">
-    <img src="https://github.com/kristina-cherevko/Car-Finder/blob/main/screenshots/IMG_1426.PNG" alt="Route in the parking lot" width="200">
-    <img src="https://github.com/kristina-cherevko/Car-Finder/blob/main/screenshots/IMG_1431.PNG" alt="Route at mall" width="200">
+<p>
+    <img src="https://github.com/kristina-cherevko/Car-Finder/blob/main/screenshots/IMG_1400.PNG" alt="Route in the parking lot" width="225">
+    <img src="https://github.com/kristina-cherevko/Car-Finder/blob/main/screenshots/IMG_1412.PNG" alt="Route at school" width="225">
+    <img src="https://github.com/kristina-cherevko/Car-Finder/blob/main/screenshots/IMG_1426.PNG" alt="Route in the parking lot" width="225">
+    <img src="https://github.com/kristina-cherevko/Car-Finder/blob/main/screenshots/IMG_1431.PNG" alt="Route at mall" width="225">
 </p>
 
 ## Installation
